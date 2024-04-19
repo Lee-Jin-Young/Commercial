@@ -1,9 +1,6 @@
-package com.hanghea99.commercial.entity;
+package com.hanghea99.commercial.member.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,7 +9,7 @@ import lombok.NoArgsConstructor;
 import java.util.UUID;
 
 @Entity
-@Table(name = "address", schema = "${schemaName}")
+@Table(name = "address", schema = "${schema.name}")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -30,4 +27,8 @@ public class Address {
 
     @Column(name = "zip_code")
     Integer zipCode;
+
+    @ManyToOne
+    @JoinColumn(name = "member_id")
+    Member member;
 }

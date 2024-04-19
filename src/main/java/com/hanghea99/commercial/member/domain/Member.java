@@ -1,4 +1,4 @@
-package com.hanghea99.commercial.entity;
+package com.hanghea99.commercial.member.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 import java.util.UUID;
 
 @Entity
-@Table(name = "member", schema = "${schemaName}")
+@Table(name = "member", schema = "${schema.name}")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -27,9 +27,6 @@ public class Member {
 
     @Column(name = "phone_number")
     String phoneNumber;
-
-    @Column(name = "address_id")
-    UUID addressId;
 
     @Column(name = "password")
     String password;
