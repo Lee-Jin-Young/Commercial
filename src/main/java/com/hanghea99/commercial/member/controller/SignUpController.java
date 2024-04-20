@@ -1,6 +1,6 @@
 package com.hanghea99.commercial.member.controller;
 
-import com.hanghea99.commercial.member.dto.MemberDto;
+import com.hanghea99.commercial.member.dto.MemberLoginDto;
 import com.hanghea99.commercial.member.service.SignUpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,14 +14,14 @@ public class SignUpController {
     @Autowired
     private SignUpService signUpService;
 
-    @PostMapping("/")
-    public ResponseEntity<?> signUp(@RequestBody MemberDto memberDto) {
+    @PostMapping
+    public ResponseEntity<?> signUp(@RequestBody MemberLoginDto memberDto) {
         System.out.println("signup");
         Object object = signUpService.signup(memberDto);
         return new ResponseEntity<>(object, HttpStatus.CREATED);
     }
 
-    @GetMapping("email-authentication")
+    @GetMapping("email-auth")
     public ResponseEntity<?> emailAuth(@RequestParam String email) {
         Object object = signUpService.emailAuthentication(email);
         return new ResponseEntity<>(object, HttpStatus.OK);

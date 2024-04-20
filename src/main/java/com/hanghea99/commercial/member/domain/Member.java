@@ -1,13 +1,11 @@
 package com.hanghea99.commercial.member.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.GenericGenerator;
 
 import java.util.UUID;
 
@@ -19,6 +17,8 @@ import java.util.UUID;
 @Builder(toBuilder = true)
 public class Member {
     @Id
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Column(name = "member_id", columnDefinition = "binary(16)", nullable = false)
     UUID memberId;
 
@@ -27,6 +27,9 @@ public class Member {
 
     @Column(name = "phone_number")
     String phoneNumber;
+
+    @Column(name = "login_id")
+    String loginId;
 
     @Column(name = "password")
     String password;
