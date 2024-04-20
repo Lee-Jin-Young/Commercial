@@ -1,4 +1,4 @@
-package com.hanghea99.commercial.util.secure;
+package com.hanghea99.commercial.utilAndSecurity.secure;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
