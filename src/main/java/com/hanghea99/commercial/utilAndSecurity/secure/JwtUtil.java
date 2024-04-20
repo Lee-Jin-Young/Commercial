@@ -4,37 +4,32 @@ import com.hanghea99.commercial.member.dto.MemberLoginDto;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
 import java.time.ZonedDateTime;
-import java.util.Base64;
 import java.util.Date;
 
 @Slf4j // 로그
 @Component
-public class Jwt {
+public class JwtUtil {
     private final Key key;
     private final long accessTokenExpTime;
 
     // 생성자
-    public Jwt(@Value("${jwt.secret}") String secretKey,
-               @Value("${jwt.expiration_time") long accessTokenExpTime
-    ) {
-        byte[] keyButes = Decoders.BASE64.decode(secretKey);
-        this.key = Keys.hmacShaKeyFor(keyButes);
+    public JwtUtil(@Value("${jwt.expiration_time}") long accessTokenExpTime) {
+        this.key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
         this.accessTokenExpTime = accessTokenExpTime;
     }
 
     // Access Token 생성
     public String createAccessToken(MemberLoginDto member) {
-        return createTocken(member, accessTokenExpTime);
+        return createToken(member, accessTokenExpTime);
     }
 
-    private String createTocken(MemberLoginDto member, long expireTime) {
+    private String createToken(MemberLoginDto member, long expireTime) {
         Claims claims = Jwts.claims();
         claims.put("memberId", member.getMemberId());
         claims.put("email", member.getEmail());
@@ -80,4 +75,6 @@ public class Jwt {
             return e.getClaims();
         }
     }
+
+
 }
