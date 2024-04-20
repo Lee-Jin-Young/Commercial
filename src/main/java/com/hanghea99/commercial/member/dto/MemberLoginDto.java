@@ -15,11 +15,10 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MemberDto {
+    UUID memberId;
+
     String memberName;
     String phoneNumber;
     String password;
     String email;
-    String city;
-    String detail;
-    Integer zipCode;
 }
