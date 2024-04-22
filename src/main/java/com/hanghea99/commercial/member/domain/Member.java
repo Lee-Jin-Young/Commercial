@@ -28,9 +28,6 @@ public class Member {
     @Column(name = "phone_number")
     String phoneNumber;
 
-    @Column(name = "login_id")
-    String loginId;
-
     @Column(name = "password")
     String password;
 

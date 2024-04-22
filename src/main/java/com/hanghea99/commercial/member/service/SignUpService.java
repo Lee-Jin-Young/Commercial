@@ -1,32 +1,42 @@
 package com.hanghea99.commercial.member.service;
 
-import com.hanghea99.commercial.member.dto.MemberLoginDto;
+import com.hanghea99.commercial.member.domain.Member;
+import com.hanghea99.commercial.member.dto.SignUpDto;
 import com.hanghea99.commercial.member.repository.MemberRepository;
+import com.hanghea99.commercial.utilAndSecurity.secure.EncryptService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.encrypt.AesBytesEncryptor;
 import org.springframework.stereotype.Service;
 
 @Service
 public class SignUpService {
     @Autowired
     private MemberRepository memberRepository;
+    @Autowired
+    private EncryptService encryptService;
 
-    public Object signup(MemberLoginDto memberDto) {
-        //비밀번호를 암호화해줄 객체를 생성
+    public Object signup(SignUpDto signUpDto) {
+        String encryptedName = encryptService.encrypt(signUpDto.getMemberName());
+        String encryptedPhoneNum = encryptService.encrypt(signUpDto.getPhoneNumber());
+        String encryptedEmail = encryptService.encrypt(signUpDto.getEmail());
+
+        //비밀번호 단방향 암호화
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        //암호화된 비밀번호 얻어내서
-//        String encodedPwd = encoder.encode(dto.getPwd());
-        //UsersDto 객체에 담고
-//        dto.setPwd(encodedPwd););
-        //UsersDao 객체를 이용해서 DB에 저장하기
-//        dao.insert(dto);
+        String encodedPwd = encoder.encode(signUpDto.getPassword());
 
-        return memberDto;
-    }
+        //엔티티 생성
+        Member member = Member.builder()
+                .memberName(encryptedName)
+                .phoneNumber(encryptedPhoneNum)
+                .password(encodedPwd)
+                .email(encryptedEmail)
+                .build();
 
-    //아이디 중복체크
-    public boolean isIdExist(String loginId) {
-//        return dao.isExist(loginId) != 0;
+        //DB에 회원 정보 저장하기
+        memberRepository.save(member);
+
+        return signUpDto;
     }
 
     public Object emailAuthentication(String email) {

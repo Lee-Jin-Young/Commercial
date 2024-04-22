@@ -1,6 +1,7 @@
 package com.hanghea99.commercial.member.controller;
 
 import com.hanghea99.commercial.member.dto.MemberLoginDto;
+import com.hanghea99.commercial.member.dto.SignUpDto;
 import com.hanghea99.commercial.member.service.SignUpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,10 +15,9 @@ public class SignUpController {
     @Autowired
     private SignUpService signUpService;
 
-    @PostMapping
-    public ResponseEntity<?> signUp(@RequestBody MemberLoginDto memberDto) {
-        System.out.println("signup");
-        Object object = signUpService.signup(memberDto);
+    @PostMapping("/")
+    public ResponseEntity<?> signUp(@RequestBody SignUpDto signUpDto) {
+        Object object = signUpService.signup(signUpDto);
         return new ResponseEntity<>(object, HttpStatus.CREATED);
     }
 
