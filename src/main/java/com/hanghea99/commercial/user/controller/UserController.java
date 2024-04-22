@@ -3,6 +3,7 @@ package com.hanghea99.commercial.user.controller;
 import com.hanghea99.commercial.user.domain.Member;
 import com.hanghea99.commercial.user.dto.LoginDto;
 import com.hanghea99.commercial.user.dto.SignUpDto;
+import com.hanghea99.commercial.user.dto.UpdatePasswordDto;
 import com.hanghea99.commercial.user.repository.MemberRepository;
 import com.hanghea99.commercial.user.service.AuthService;
 import com.hanghea99.commercial.user.service.SignUpService;
@@ -64,5 +65,14 @@ public class UserController {
 
         // 로그아웃 성공 메시지 반환
         return ResponseEntity.ok("로그아웃 되었습니다.");
+    }
+
+    @PostMapping("/update/password")
+    public ResponseEntity<?> updatePassword(@RequestBody UpdatePasswordDto updatePasswordDto) {
+        try {
+            return ResponseEntity.status(HttpStatus.CREATED).body(authService.updatePassword(updatePasswordDto));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 }

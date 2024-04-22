@@ -2,12 +2,15 @@ package com.hanghea99.commercial.user.service;
 
 import com.hanghea99.commercial.user.domain.Member;
 import com.hanghea99.commercial.user.dto.LoginDto;
+import com.hanghea99.commercial.user.dto.UpdatePasswordDto;
 import com.hanghea99.commercial.user.repository.MemberRepository;
 import com.hanghea99.commercial.utilAndSecurity.secure.EncryptService;
 import com.hanghea99.commercial.utilAndSecurity.secure.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.UUID;
 
 @Service
 public class AuthService {
@@ -39,5 +42,26 @@ public class AuthService {
 
         // 로그인 성공 시 JWT 토큰 생성
         return jwtUtil.createAccessToken(loginDto);
+    }
+
+    public Object updatePassword(UpdatePasswordDto updatePasswordDto) {
+        UUID memberId = updatePasswordDto.getMemberId();
+        Member member = memberRepository.findByMemberId(memberId)
+                .orElseThrow(() -> new IllegalArgumentException("없는 회원입니다."));
+
+        // 비밀번호 검증
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        if (!encoder.matches(updatePasswordDto.getOldPassword(), member.getPassword())) {
+            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
+        }
+
+        String encodedPwd = encoder.encode(updatePasswordDto.getNewPassword());
+        Member newMember = member.toBuilder()
+                .password(encodedPwd)
+                .build();
+        memberRepository.save(newMember);
+
+        // 회원 정보 수정 성공 시
+        return member.getMemberId();
     }
 }
