@@ -1,8 +1,7 @@
 package com.hanghea99.commercial.utilAndSecurity.secure;
 
-import com.hanghea99.commercial.member.dto.MemberLoginDto;
+import com.hanghea99.commercial.user.dto.LoginDto;
 import io.jsonwebtoken.*;
-import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,11 +24,23 @@ public class JwtUtil {
     }
 
     // Access Token 생성
-    public String createAccessToken(MemberLoginDto member) {
-        return createToken(member, accessTokenExpTime);
+    public String createAccessToken(LoginDto loginDto) {
+        Claims claims = Jwts.claims();
+        claims.put("email", loginDto.getEmail());
+
+        ZonedDateTime now = ZonedDateTime.now();
+        ZonedDateTime tokenValidity = now.plusSeconds(accessTokenExpTime);
+
+        return Jwts.builder()
+                .setClaims(claims)
+                .setSubject(loginDto.getEmail()) // 이메일을 토큰의 서브젝트로 설정
+                .setIssuedAt(Date.from(now.toInstant()))
+                .setExpiration(Date.from(tokenValidity.toInstant()))
+                .signWith(key, SignatureAlgorithm.HS256)
+                .compact();
     }
 
-    private String createToken(MemberLoginDto member, long expireTime) {
+    private String createToken(LoginDto member, long expireTime) {
         Claims claims = Jwts.claims();
         claims.put("memberId", member.getMemberId());
         claims.put("email", member.getEmail());
@@ -37,11 +48,7 @@ public class JwtUtil {
         ZonedDateTime now = ZonedDateTime.now();
         ZonedDateTime tokenValidity = now.plusSeconds(expireTime);
 
-        return Jwts.builder()
-                .setClaims(claims)
-                .setIssuedAt(Date.from(now.toInstant()))
-                .setExpiration(Date.from(tokenValidity.toInstant()))
-                .signWith(key, SignatureAlgorithm.HS256) //SHA-256으로 보안
+        return Jwts.builder().setClaims(claims).setIssuedAt(Date.from(now.toInstant())).setExpiration(Date.from(tokenValidity.toInstant())).signWith(key, SignatureAlgorithm.HS256) //SHA-256으로 보안
                 .compact();
     }
 

@@ -1,9 +1,6 @@
-package com.hanghea99.commercial.member.dto;
+package com.hanghea99.commercial.user.dto;
 
-import jakarta.persistence.Column;
 import lombok.Data;
-
-import java.util.UUID;
 
 @Data
 public class SignUpDto {
