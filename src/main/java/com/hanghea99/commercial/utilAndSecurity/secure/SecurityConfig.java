@@ -1,10 +1,12 @@
 package com.hanghea99.commercial.utilAndSecurity.secure;
 
 import lombok.RequiredArgsConstructor;
+import lombok.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.crypto.encrypt.AesBytesEncryptor;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
@@ -19,7 +21,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .csrf((csrf) -> csrf.disable())
-                .authorizeHttpRequests(authorize ->authorize.anyRequest().permitAll()) // 모든 요청에 대해 인증 없이 접근 허용
+                .authorizeHttpRequests(authorize -> authorize.anyRequest().permitAll()) // 모든 요청에 대해 인증 없이 접근 허용
                 .securityMatcher(new AntPathRequestMatcher("/**")); // 모든 경로에 대한 보안 매처 설정
         return http.build();
     }
@@ -39,5 +41,10 @@ public class SecurityConfig {
         source.registerCorsConfiguration("/**", configuration);
 
         return source;
+    }
+
+    @Bean
+    public AesBytesEncryptor aesBytesEncryptor() {
+        return new AesBytesEncryptor("mySecretKey123456", "70726574657374");
     }
 }
