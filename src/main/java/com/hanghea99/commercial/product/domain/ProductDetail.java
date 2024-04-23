@@ -10,21 +10,25 @@ import org.hibernate.annotations.GenericGenerator;
 import java.util.UUID;
 
 @Entity
-@Table(name = "product", schema = "${schema.name}")
+@Table(name = "product_detail", schema = "${schema.name}")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder(toBuilder = true)
-public class Product {
+public class ProductDetail {
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    @Column(name = "product_id", columnDefinition = "binary(16)", nullable = false)
-    private UUID productId;
+    @Column(name = "product_detail_id", columnDefinition = "binary(16)", nullable = false)
+    private UUID productDetailId;
 
-    @Column(name = "product_name")
-    private String productName;
+    @Column(name = "size")
+    private String size;
 
-    @Column(name = "price")
-    private int price;
+    @Column(name = "color")
+    private String color;
+
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    Product product;
 }
