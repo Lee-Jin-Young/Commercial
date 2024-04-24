@@ -1,8 +1,8 @@
-package com.hanghea99.commercial.user.service;
+package com.hanghea99.commercial.member.service;
 
-import com.hanghea99.commercial.user.domain.Member;
-import com.hanghea99.commercial.user.dto.SignUpDto;
-import com.hanghea99.commercial.user.repository.MemberRepository;
+import com.hanghea99.commercial.member.domain.Member;
+import com.hanghea99.commercial.member.dto.SignUpDto;
+import com.hanghea99.commercial.member.repository.MemberRepository;
 import com.hanghea99.commercial.utilAndSecurity.secure.EncryptService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

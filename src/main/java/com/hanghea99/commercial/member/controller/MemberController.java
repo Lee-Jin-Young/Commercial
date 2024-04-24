@@ -1,37 +1,23 @@
-package com.hanghea99.commercial.user.controller;
+package com.hanghea99.commercial.member.controller;
 
-import com.hanghea99.commercial.user.domain.Member;
-import com.hanghea99.commercial.user.dto.LoginDto;
-import com.hanghea99.commercial.user.dto.SignUpDto;
-import com.hanghea99.commercial.user.dto.UpdatePasswordDto;
-import com.hanghea99.commercial.user.repository.MemberRepository;
-import com.hanghea99.commercial.user.service.AuthService;
-import com.hanghea99.commercial.user.service.SignUpService;
-import com.hanghea99.commercial.utilAndSecurity.secure.JwtUtil;
+import com.hanghea99.commercial.member.dto.LoginDto;
+import com.hanghea99.commercial.member.dto.SignUpDto;
+import com.hanghea99.commercial.member.dto.UpdatePasswordDto;
+import com.hanghea99.commercial.member.service.AuthService;
+import com.hanghea99.commercial.member.service.SignUpService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.Authenticator;
-import java.util.UUID;
-
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/api/member")
 @RequiredArgsConstructor
-public class UserController {
-    @Autowired
-    private SignUpService signUpService;
-    @Autowired
-    private AuthService authService;
+public class MemberController {
+    private final SignUpService signUpService;
+    private final AuthService authService;
 
     @GetMapping("/email-auth")
     public ResponseEntity<?> emailAuth(@RequestParam String email) {
@@ -48,7 +34,7 @@ public class UserController {
     @PostMapping("/log-in")
     public ResponseEntity<?> login(@RequestBody LoginDto loginDto) {
         try {
-            String token = authService.authenticateUser(loginDto);
+            String token = authService.authenticateMember(loginDto);
             return ResponseEntity.ok(token);
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());

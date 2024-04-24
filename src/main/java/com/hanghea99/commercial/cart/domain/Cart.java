@@ -1,4 +1,4 @@
-package com.hanghea99.commercial.order.domain;
+package com.hanghea99.commercial.cart.domain;
 
 import com.hanghea99.commercial.member.domain.Member;
 import com.hanghea99.commercial.product.domain.Product;
@@ -8,23 +8,18 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
-@Table(name = "order", schema = "${schema.name}")
+@Table(name = "cart", schema = "${schema.name}")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder(toBuilder = true)
-public class Order {
-
+public class Cart {
     @Id
-    @Column(name = "order_id")
-    UUID orderId;
-
-    @Column(name = "order_date")
-    LocalDateTime orderDate;
+    @Column(name = "cart_id")
+    UUID wishListId;
 
     @ManyToOne
     @JoinColumn(name = "member_id")
@@ -33,8 +28,4 @@ public class Order {
     @ManyToOne
     @JoinColumn(name = "product_id")
     Product product;
-
-    @ManyToOne
-    @JoinColumn(name = "order_status_key_id")
-    OrderStatusKey orderStatusKey;
 }

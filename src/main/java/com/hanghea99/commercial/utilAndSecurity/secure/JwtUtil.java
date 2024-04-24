@@ -1,6 +1,6 @@
 package com.hanghea99.commercial.utilAndSecurity.secure;
 
-import com.hanghea99.commercial.user.dto.LoginDto;
+import com.hanghea99.commercial.member.dto.LoginDto;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;

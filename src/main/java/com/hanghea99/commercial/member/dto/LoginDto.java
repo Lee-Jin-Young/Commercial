@@ -1,4 +1,4 @@
-package com.hanghea99.commercial.user.dto;
+package com.hanghea99.commercial.member.dto;
 
 import lombok.*;
 

@@ -1,4 +1,4 @@
-package com.hanghea99.commercial.user.domain;
+package com.hanghea99.commercial.member.domain;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

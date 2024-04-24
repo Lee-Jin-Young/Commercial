@@ -1,9 +1,9 @@
-package com.hanghea99.commercial.user.service;
+package com.hanghea99.commercial.member.service;
 
-import com.hanghea99.commercial.user.domain.Member;
-import com.hanghea99.commercial.user.dto.LoginDto;
-import com.hanghea99.commercial.user.dto.UpdatePasswordDto;
-import com.hanghea99.commercial.user.repository.MemberRepository;
+import com.hanghea99.commercial.member.domain.Member;
+import com.hanghea99.commercial.member.dto.LoginDto;
+import com.hanghea99.commercial.member.dto.UpdatePasswordDto;
+import com.hanghea99.commercial.member.repository.MemberRepository;
 import com.hanghea99.commercial.utilAndSecurity.secure.EncryptService;
 import com.hanghea99.commercial.utilAndSecurity.secure.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ public class AuthService {
     @Autowired
     private EncryptService encryptService;
 
-    public String authenticateUser(LoginDto loginDto) {
+    public String authenticateMember(LoginDto loginDto) {
         // DB에는 암호와 되어 들어가 있으므로
         String encryptedEmail = encryptService.encrypt(loginDto.getEmail());
 
