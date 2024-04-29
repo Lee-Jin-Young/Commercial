@@ -1,0 +1,28 @@
+version: '3.0'
+
+services:
+
+  # mysql 이미지를 이용해서 mysql 라는 이름의 컨테이너 작성
+  mysql:
+    image: mysql:latest
+    # 컨테이너가 시작 될 때 커맨드 실행
+    # caching_sha2_password 로 비밀번호 인증
+    # mysql_native_password 는 추후에 지원 종료 된다고 함
+    command: --default-authentication-plugin=caching_sha2_password
+    # 컨테이너가 의도치 않게 종료 혹은 도커 시작 시 자동시작
+    restart: always
+    environment:
+      # 비밀번호
+      MYSQL_ROOT_PASSWORD: 1234
+    ports:
+      # 포트번호
+      - 3306:3306
+
+  spring-boot-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mysql
