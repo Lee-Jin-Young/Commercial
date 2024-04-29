@@ -1,42 +1,33 @@
 package com.hanghea99.commercial.user.service;
 
-import com.hanghea99.commercial.user.domain.Member;
+import com.hanghea99.commercial.user.domain.User;
 import com.hanghea99.commercial.user.dto.LoginDto;
 import com.hanghea99.commercial.user.dto.UpdatePasswordDto;
-import com.hanghea99.commercial.user.repository.MemberRepository;
+import com.hanghea99.commercial.user.repository.UserRepository;
 import com.hanghea99.commercial.utilAndSecurity.secure.EncryptService;
 import com.hanghea99.commercial.utilAndSecurity.secure.JwtUtil;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
-
 @Service
+@RequiredArgsConstructor
 public class AuthService {
-    @Autowired
-    private MemberRepository memberRepository;
+    private final UserRepository userRepository;
 
-    @Autowired
-    private JwtUtil jwtUtil;
-    @Autowired
-    private EncryptService encryptService;
+    private final JwtUtil jwtUtil;
+    private final EncryptService encryptService;
 
     public String authenticateUser(LoginDto loginDto) {
         // DB에는 암호와 되어 들어가 있으므로
         String encryptedEmail = encryptService.encrypt(loginDto.getEmail());
 
-        // 이메일과 비밀번호로 인증된 사용자인지 확인
-        Member member = memberRepository.findByEmail(encryptedEmail);
-
-        // 만일 이메일에 해당 되는 사용자가 없을 경우
-        if (member == null) {
-            throw new IllegalArgumentException("유효하지 않은 이메일입니다.");
-        }
+        // 이메일 인증된 사용자인지 확인
+        User user = userRepository.findByEmail(encryptedEmail).orElseThrow(() -> new IllegalArgumentException("유효하지 않은 이메일입니다."));
 
         // 비밀번호 검증
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        if (!encoder.matches(loginDto.getPassword(), member.getPassword())) {
+        if (!encoder.matches(loginDto.getPassword(), user.getPassword())) {
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
 
@@ -45,23 +36,20 @@ public class AuthService {
     }
 
     public Object updatePassword(UpdatePasswordDto updatePasswordDto) {
-        UUID memberId = updatePasswordDto.getMemberId();
-        Member member = memberRepository.findByMemberId(memberId)
-                .orElseThrow(() -> new IllegalArgumentException("없는 회원입니다."));
+        Long userId = updatePasswordDto.getUserId();
+        User user = userRepository.findByUserId(userId).orElseThrow(() -> new IllegalArgumentException("없는 회원입니다."));
 
         // 비밀번호 검증
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        if (!encoder.matches(updatePasswordDto.getOldPassword(), member.getPassword())) {
+        if (!encoder.matches(updatePasswordDto.getOldPassword(), user.getPassword())) {
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
 
         String encodedPwd = encoder.encode(updatePasswordDto.getNewPassword());
-        Member newMember = member.toBuilder()
-                .password(encodedPwd)
-                .build();
-        memberRepository.save(newMember);
+        User newUser = user.toBuilder().password(encodedPwd).build();
+        userRepository.save(newUser);
 
         // 회원 정보 수정 성공 시
-        return member.getMemberId();
+        return user.getUserId();
     }
 }
