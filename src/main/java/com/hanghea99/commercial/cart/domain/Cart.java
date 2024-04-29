@@ -1,31 +1,25 @@
 package com.hanghea99.commercial.cart.domain;
 
-import com.hanghea99.commercial.member.domain.Member;
 import com.hanghea99.commercial.product.domain.Product;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-import java.util.UUID;
+import lombok.*;
 
 @Entity
-@Table(name = "cart", schema = "${schema.name}")
-@Data
+@Table(name = "cart")
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder(toBuilder = true)
 public class Cart {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cart_id")
-    UUID wishListId;
+    private Long cartId;
 
-    @ManyToOne
-    @JoinColumn(name = "member_id")
-    Member member;
+    @Column(name = "user_id", nullable = false)
+    private Long userId;
 
-    @ManyToOne
-    @JoinColumn(name = "product_id")
-    Product product;
+    @Column(name = "product_id", nullable = false)
+    private Long productId;
 }

@@ -1,26 +1,20 @@
 package com.hanghea99.commercial.product.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
-
-import java.util.UUID;
+import lombok.*;
 
 @Entity
-@Table(name = "product_detail", schema = "${schema.name}")
-@Data
+@Table(name = "product_detail")
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder(toBuilder = true)
 public class ProductDetail {
     @Id
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    @Column(name = "product_detail_id", columnDefinition = "binary(16)", nullable = false)
-    private UUID productDetailId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "product_detail_id")
+    private Long productDetailId;
 
     @Column(name = "size")
     private String size;
@@ -28,7 +22,6 @@ public class ProductDetail {
     @Column(name = "color")
     private String color;
 
-    @ManyToOne
-    @JoinColumn(name = "product_id")
-    Product product;
+    @Column(name = "product_id", nullable = false)
+    Long productId;
 }

@@ -1,6 +1,6 @@
 package com.hanghea99.commercial.utilAndSecurity.secure;
 
-import com.hanghea99.commercial.member.dto.LoginDto;
+import com.hanghea99.commercial.user.dto.LoginDto;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
@@ -40,10 +40,10 @@ public class JwtUtil {
                 .compact();
     }
 
-    private String createToken(LoginDto member, long expireTime) {
+    private String createToken(LoginDto user, long expireTime) {
         Claims claims = Jwts.claims();
-        claims.put("memberId", member.getMemberId());
-        claims.put("email", member.getEmail());
+        claims.put("userId", user.getUserId());
+        claims.put("email", user.getEmail());
 
         ZonedDateTime now = ZonedDateTime.now();
         ZonedDateTime tokenValidity = now.plusSeconds(expireTime);
@@ -52,8 +52,8 @@ public class JwtUtil {
                 .compact();
     }
 
-    public Long getMemberId(String token) {
-        return parseClaims(token).get("memberId", Long.class);
+    public Long getUserId(String token) {
+        return parseClaims(token).get("userId", Long.class);
     }
 
     // JWT Token 검증

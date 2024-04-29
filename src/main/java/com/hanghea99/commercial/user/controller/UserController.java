@@ -1,10 +1,10 @@
-package com.hanghea99.commercial.member.controller;
+package com.hanghea99.commercial.user.controller;
 
-import com.hanghea99.commercial.member.dto.LoginDto;
-import com.hanghea99.commercial.member.dto.SignUpDto;
-import com.hanghea99.commercial.member.dto.UpdatePasswordDto;
-import com.hanghea99.commercial.member.service.AuthService;
-import com.hanghea99.commercial.member.service.SignUpService;
+import com.hanghea99.commercial.user.dto.LoginDto;
+import com.hanghea99.commercial.user.dto.SignUpDto;
+import com.hanghea99.commercial.user.dto.UpdatePasswordDto;
+import com.hanghea99.commercial.user.service.AuthService;
+import com.hanghea99.commercial.user.service.SignUpService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -13,9 +13,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/member")
+@RequestMapping("/api/user")
 @RequiredArgsConstructor
-public class MemberController {
+public class UserController {
     private final SignUpService signUpService;
     private final AuthService authService;
 
@@ -27,14 +27,18 @@ public class MemberController {
 
     @PostMapping("/sign-up")
     public ResponseEntity<?> signUp(@RequestBody SignUpDto signUpDto) {
-        Object object = signUpService.signup(signUpDto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(object);
+        try {
+            Object object = signUpService.signup(signUpDto);
+            return ResponseEntity.status(HttpStatus.CREATED).body(object);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     @PostMapping("/log-in")
     public ResponseEntity<?> login(@RequestBody LoginDto loginDto) {
         try {
-            String token = authService.authenticateMember(loginDto);
+            String token = authService.authenticateUser(loginDto);
             return ResponseEntity.ok(token);
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());

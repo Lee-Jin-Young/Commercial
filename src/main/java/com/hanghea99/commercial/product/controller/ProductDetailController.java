@@ -17,7 +17,7 @@ public class ProductDetailController {
 
     @PostMapping("/")
     public ResponseEntity<?> addProduct(@RequestParam String productName,
-                                        @RequestParam int price) {
+                                        @RequestParam Long price) {
         return ResponseEntity.status(HttpStatus.CREATED).body(productService.addProduct(productName, price));
     }
 }

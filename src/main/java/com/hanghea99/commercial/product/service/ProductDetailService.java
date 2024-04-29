@@ -8,15 +8,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
-
 @Service
 @RequiredArgsConstructor
 public class ProductDetailService {
     private final ProductRepository productRepository;
     private final ProductDetailRepository productDetailRepository;
 
-    public Object addProduct(String productName, int price) {
+    public Object addProduct(String productName, Long price) {
         Product product = Product.builder()
                 .productName(productName)
                 .price(price)
@@ -26,14 +24,14 @@ public class ProductDetailService {
         ProductDetail detail = ProductDetail.builder()
                 .size("M")
                 .color("Black")
-                .product(product)
+                .productId(product.getProductId())
                 .build();
         productDetailRepository.save(detail);
 
         ProductDetail detail2 = ProductDetail.builder()
                 .size("M")
                 .color("White")
-                .product(product)
+                .productId(product.getProductId())
                 .build();
         productDetailRepository.save(detail2);
 

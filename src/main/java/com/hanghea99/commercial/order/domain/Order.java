@@ -1,40 +1,32 @@
 package com.hanghea99.commercial.order.domain;
 
-import com.hanghea99.commercial.member.domain.Member;
-import com.hanghea99.commercial.product.domain.Product;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Entity
-@Table(name = "order", schema = "${schema.name}")
-@Data
+@Table(name = "order")
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder(toBuilder = true)
 public class Order {
-
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_id")
-    UUID orderId;
+    Long orderId;
 
-    @Column(name = "order_date")
+    @Column(name = "order_date", nullable = false)
     LocalDateTime orderDate;
 
-    @ManyToOne
-    @JoinColumn(name = "member_id")
-    Member member;
+    @JoinColumn(name = "user_id", nullable = false)
+    Long userId;
 
-    @ManyToOne
-    @JoinColumn(name = "product_id")
-    Product product;
+    @JoinColumn(name = "product_id", nullable = false)
+    Long productId;
 
-    @ManyToOne
-    @JoinColumn(name = "order_status_key_id")
-    OrderStatusKey orderStatusKey;
+    @JoinColumn(name = "order_status_key_id", nullable = false)
+    Long orderStatusKeyId;
 }

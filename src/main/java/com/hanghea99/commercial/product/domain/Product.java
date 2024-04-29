@@ -1,30 +1,24 @@
 package com.hanghea99.commercial.product.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
-
-import java.util.UUID;
+import lombok.*;
 
 @Entity
-@Table(name = "product", schema = "${schema.name}")
-@Data
+@Table(name = "product")
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder(toBuilder = true)
 public class Product {
     @Id
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    @Column(name = "product_id", columnDefinition = "binary(16)", nullable = false)
-    private UUID productId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "product_id")
+    private Long productId;
 
     @Column(name = "product_name")
     private String productName;
 
     @Column(name = "price")
-    private int price;
+    private Long price;
 }
