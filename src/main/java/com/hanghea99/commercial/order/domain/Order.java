@@ -1,39 +1,32 @@
-//package com.hanghea99.commercial.order.domain;
-//
-//import com.hanghea99.commercial.product.domain.Product;
-//import jakarta.persistence.*;
-//import lombok.AllArgsConstructor;
-//import lombok.Builder;
-//import lombok.Data;
-//import lombok.NoArgsConstructor;
-//
-//import java.time.LocalDateTime;
-//import java.util.UUID;
-//
-//@Entity
-//@Table(name = "order", schema = "${schema.name}")
-//@Data
-//@NoArgsConstructor
-//@AllArgsConstructor
-//@Builder(toBuilder = true)
-//public class Order {
-//
-//    @Id
-//    @Column(name = "order_id")
-//    UUID orderId;
-//
-//    @Column(name = "member_id")
-//    UUID memberId;
-//
-//
-//    @Column(name = "order_date")
-//    LocalDateTime orderDate;
-//
-//    @ManyToOne
-//    @JoinColumn(name = "product_id")
-//    Product product;
-//
-//    @ManyToOne
-//    @JoinColumn(name = "order_status_key_id")
-//    OrderStatusKey orderStatusKey;
-//}
+package com.hanghea99.commercial.order.domain;
+
+import jakarta.persistence.*;
+import lombok.*;
+
+import java.time.LocalDateTime;
+
+@Entity
+@Table(name = "order")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder(toBuilder = true)
+public class Order {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "order_id")
+    Long orderId;
+
+    @Column(name = "order_date", nullable = false)
+    LocalDateTime orderDate;
+
+    @JoinColumn(name = "user_id", nullable = false)
+    Long userId;
+
+    @JoinColumn(name = "product_id", nullable = false)
+    Long productId;
+
+    @JoinColumn(name = "order_status_key_id", nullable = false)
+    Long orderStatusKeyId;
+}

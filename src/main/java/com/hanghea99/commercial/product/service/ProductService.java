@@ -8,8 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
-
 @Service
 @RequiredArgsConstructor
 public class ProductService {
@@ -20,7 +18,7 @@ public class ProductService {
         return productRepository.findAll(PageRequest.of(page, size));
     }
 
-    public Object getDetail(UUID productId) {
+    public Object getDetail(Long productId) {
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new IllegalArgumentException("없는 물건입니다."));
 

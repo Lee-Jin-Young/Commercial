@@ -1,37 +1,30 @@
 package com.hanghea99.commercial.user.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
-
-import java.util.UUID;
+import lombok.*;
 
 @Entity
-@Table(name = "address", schema = "${schema.name}")
-@Data
+@Table(name = "address")
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder(toBuilder = true)
 public class Address {
     @Id
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    @Column(name = "address_id", columnDefinition = "binary(16)", nullable = false)
-    UUID addressId;
+    @Column(name = "address_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long addressId;
 
-    @Column(name = "city")
-    String city;
+    @Column(name = "city", nullable = false)
+    private String city;
 
     @Column(name = "detail")
-    String detail;
+    private String detail;
 
-    @Column(name = "zip_code")
-    Integer zipCode;
+    @Column(name = "zip_code", nullable = false)
+    private Integer zipCode;
 
-    @ManyToOne
-    @JoinColumn(name = "member_id")
-    Member member;
+    @Column(name = "user_id", nullable = false)
+    private Long userId;
 }

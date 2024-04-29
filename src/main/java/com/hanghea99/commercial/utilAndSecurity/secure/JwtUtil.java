@@ -40,10 +40,10 @@ public class JwtUtil {
                 .compact();
     }
 
-    private String createToken(LoginDto member, long expireTime) {
+    private String createToken(LoginDto user, long expireTime) {
         Claims claims = Jwts.claims();
-        claims.put("memberId", member.getMemberId());
-        claims.put("email", member.getEmail());
+        claims.put("userId", user.getUserId());
+        claims.put("email", user.getEmail());
 
         ZonedDateTime now = ZonedDateTime.now();
         ZonedDateTime tokenValidity = now.plusSeconds(expireTime);
@@ -52,8 +52,8 @@ public class JwtUtil {
                 .compact();
     }
 
-    public Long getMemberId(String token) {
-        return parseClaims(token).get("memberId", Long.class);
+    public Long getUserId(String token) {
+        return parseClaims(token).get("userId", Long.class);
     }
 
     // JWT Token 검증
