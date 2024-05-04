@@ -23,14 +23,14 @@ public class ProductDetailService {
         ProductDetail detail = ProductDetail.builder()
                 .size("M")
                 .color("Black")
-                .productId(product.getId())
+                .product(product)
                 .build();
         productDetailRepository.save(detail);
 
         ProductDetail detail2 = ProductDetail.builder()
                 .size("M")
                 .color("White")
-                .productId(product.getId())
+                .product(product)
                 .build();
         productDetailRepository.save(detail2);
 

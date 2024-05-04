@@ -25,6 +25,10 @@ public class Product {
     @Column(name = "stock")
     private Long stock;
 
-    @Column(name = "type")
-    private String type;
+    @ManyToOne
+    @JoinColumn(name = "key_order_type_id", referencedColumnName = "key_order_type_id")
+    private KeyOrderType keyOrderType;
+
+    @OneToOne(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private ProductDetail detail;
 }
