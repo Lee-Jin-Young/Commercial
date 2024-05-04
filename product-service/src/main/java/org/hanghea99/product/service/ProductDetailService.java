@@ -15,7 +15,7 @@ public class ProductDetailService {
 
     public Object addProduct(String productName, Long price) {
         Product product = Product.builder()
-                .productName(productName)
+                .title(productName)
                 .price(price)
                 .build();
         productRepository.save(product);
@@ -23,17 +23,17 @@ public class ProductDetailService {
         ProductDetail detail = ProductDetail.builder()
                 .size("M")
                 .color("Black")
-                .productId(product.getProductId())
+                .product(product)
                 .build();
         productDetailRepository.save(detail);
 
         ProductDetail detail2 = ProductDetail.builder()
                 .size("M")
                 .color("White")
-                .productId(product.getProductId())
+                .product(product)
                 .build();
         productDetailRepository.save(detail2);
 
-        return product.getProductId();
+        return product.getId();
     }
 }
