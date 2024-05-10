@@ -27,7 +27,7 @@ services:
     restart: always
     ports:
       # 포트번호 [로컬 포트]:6379
-      - "6379:6379"
+      - "6380:6379"
 
   spring-boot-app:
     build:

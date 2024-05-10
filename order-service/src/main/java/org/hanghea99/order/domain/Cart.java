@@ -21,4 +21,7 @@ public class Cart {
 
     @Column(name = "product_id", nullable = false)
     private Long productId;
+
+    @Column(name = "quantity", nullable = false)
+    Long quantity;
 }

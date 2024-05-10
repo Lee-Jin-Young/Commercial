@@ -1,10 +1,13 @@
 package org.hanghea99.order.controller;
 
-import org.hanghea99.order.service.CartService;
 import lombok.RequiredArgsConstructor;
+import org.hanghea99.order.dto.UpdateCartDto;
+import org.hanghea99.order.service.CartService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -21,21 +24,22 @@ public class CartController {
         }
     }
 
-    @PutMapping("/{productId}")
-    public ResponseEntity<?> updateProduct(@PathVariable Long userId,
-                                           @PathVariable Long productId) {
+    @PutMapping("")
+    public ResponseEntity<?> updateCart(@PathVariable Long userId,
+                                        @RequestBody List<UpdateCartDto> updateCarttDto) {
         try {
-            return ResponseEntity.ok(cartService.getInfo(userId));
+            cartService.updateCart(userId, updateCarttDto);
+            return ResponseEntity.ok().build();
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
     @DeleteMapping("/{productId}")
-    public ResponseEntity<?> deleteProduct(@PathVariable Long userId,
-                                           @PathVariable Long productId) {
+    public ResponseEntity<?> deleteCart(@PathVariable Long userId,
+                                        @PathVariable Long productId) {
         try {
-            return ResponseEntity.ok(cartService.getInfo(userId));
+            return ResponseEntity.ok(cartService.deleteCart(userId, productId));
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
