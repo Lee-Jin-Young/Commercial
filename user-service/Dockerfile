@@ -7,4 +7,4 @@ WORKDIR /app
 # server
 COPY user-service-0.0.1-SNAPSHOT.jar /app/user-0.0.1-SNAPSHOT.jar
 
-CMD ["java", "-jar", "user-service-0.0.1-SNAPSHOT.jar"]
+CMD ["./wait-for-mysql.sh", "mysql:3306", "--", "java", "-jar", "user-service-0.0.1-SNAPSHOT.jar"]

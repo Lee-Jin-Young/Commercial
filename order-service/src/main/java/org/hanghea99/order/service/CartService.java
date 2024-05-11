@@ -76,10 +76,4 @@ public class CartService {
             }
         }
     }
-
-    public Object deleteCart(Long userId, Long productId) {
-        // product-service의 클라이언트를 사용하여 productId에 대한 상품 정보 가져오기
-        // 카트에서 상품 제거
-        return 0;
-    }
 }

@@ -29,17 +29,7 @@ public class CartController {
                                         @RequestBody List<UpdateCartDto> updateCarttDto) {
         try {
             cartService.updateCart(userId, updateCarttDto);
-            return ResponseEntity.ok().build();
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
-    }
-
-    @DeleteMapping("/{productId}")
-    public ResponseEntity<?> deleteCart(@PathVariable Long userId,
-                                        @PathVariable Long productId) {
-        try {
-            return ResponseEntity.ok(cartService.deleteCart(userId, productId));
+            return ResponseEntity.ok("장바구니가 수정 되었습니다.");
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }

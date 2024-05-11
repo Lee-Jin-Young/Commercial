@@ -14,8 +14,8 @@ public class KeyOrderStatus {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "key_order_status_id")
-    private Long orderStatusKeyId;
+    private Long keyOrderStatusId;
 
-    @Column(name = "order_status", nullable = false)
-    private String orderStatus;
+    @Column(name = "key_order_status", nullable = false)
+    private String status;
 }

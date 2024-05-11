@@ -12,10 +12,12 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class OrderDto {
+    // 주문 id
+    private Long orderId;
     // 주문 일자
     private LocalDateTime orderDate;
     // 배송 상태
-    private String orderStatus;
+    private String keyOrderStatus;
     // 상품 명
     private String title;
     // 주문 개수
