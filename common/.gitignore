@@ -35,7 +35,3 @@ out/
 
 ### VS Code ###
 .vscode/
-user-service/data/
-product-service/data/
-order-service/data/
-hs_err_pid19724.log
