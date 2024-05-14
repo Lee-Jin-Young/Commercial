@@ -29,7 +29,6 @@ public class ProductService {
         productDto.setId(product.getId());
         productDto.setTitle(product.getTitle());
         productDto.setPrice(product.getPrice());
-        productDto.setStock(product.getStock());
         productDto.setOrderType(product.getKeyOrderType().getOrderType());
         return productDto;
     }
@@ -50,11 +49,11 @@ public class ProductService {
         return productDto;
     }
 
-    public Object getStock(Long productId) {
-        // 없는 물건에 대해 임의로 입력해서 들어올 경우
-        Product product = productRepository.findById(productId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 제품을 찾을 수 없습니다."));
-
-        return product.getStock();
-    }
+//    public Object getStock(Long productId) {
+//        // 없는 물건에 대해 임의로 입력해서 들어올 경우
+//        Product product = productRepository.findById(productId)
+//                .orElseThrow(() -> new IllegalArgumentException("해당 제품을 찾을 수 없습니다."));
+//
+//        return product.getStock();
+//    }
 }

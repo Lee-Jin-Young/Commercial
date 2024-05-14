@@ -35,7 +35,6 @@ public class DummyDataLoader implements CommandLineRunner {
             Product product = Product.builder()
                     .title("Product " + i)
                     .price(10000L + i * 1000L)
-                    .stock(50L - i)
                     .keyOrderType(i % 2 == 0 ? normalOrderType : reservationOrderType)
                     .build();
 

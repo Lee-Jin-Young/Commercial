@@ -22,9 +22,6 @@ public class Product {
     @Column(name = "price")
     private Long price;
 
-    @Column(name = "stock")
-    private Long stock;
-
     @ManyToOne
     @JoinColumn(name = "key_order_type_id", referencedColumnName = "key_order_type_id")
     private KeyOrderType keyOrderType;

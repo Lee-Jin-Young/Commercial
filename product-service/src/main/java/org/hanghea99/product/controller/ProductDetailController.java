@@ -24,12 +24,12 @@ public class ProductDetailController {
         }
     }
 
-    @GetMapping("/stock")
-    public ResponseEntity<?> productStock(@PathVariable Long productId) {
-        try {
-            return ResponseEntity.ok(productService.getStock(productId));
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
-    }
+//    @GetMapping("/stock")
+//    public ResponseEntity<?> productStock(@PathVariable Long productId) {
+//        try {
+//            return ResponseEntity.ok(productService.getStock(productId));
+//        } catch (IllegalArgumentException e) {
+//            return ResponseEntity.badRequest().body(e.getMessage());
+//        }
+//    }
 }
