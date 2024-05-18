@@ -1,11 +1,13 @@
 ### 1. 프로젝트의 주요 기능과 목적
 
-프로젝트 요약
+해당 레포지토리 "Commercial" 프로젝트는 MSA(Microservices Architecture) 기반으로, Spring Boot, Java, MySQL, Docker를 사용하여 다양한 서비스(order-service, product-service, user-service)를 구현한 개인 프로젝트 입니다.
 
 ![SpringBoot](https://img.shields.io/badge/Spring%20Boot-6DB33F.svg?style=for-the-badge&logo=SpringBoot&logoColor=white)
 ![Java21+](https://img.shields.io/badge/Java-21%2B-ED8B00?style=for-the-badge&labelColor=ED8B00&logo=java&color=808080)
 ![mysql](https://img.shields.io/badge/MySQL-4479A1.svg?style=for-the-badge&logo=MySql&logoColor=white)
 ![docker](https://img.shields.io/badge/Docker-2496ED.svg?style=for-the-badge&logo=Docker&logoColor=white)
+
+![제목 없는 다이어그램 (1)](https://github.com/Lee-Jin-Young/Commercial/assets/129915982/6875b7dd-2dfd-48a2-92bf-f4195808aa79)
 
 ---
 ## 2. 설치 방법
