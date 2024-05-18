@@ -14,11 +14,18 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "product_id")
-    private Long productId;
+    private Long id;
 
-    @Column(name = "product_name")
-    private String productName;
+    @Column(name = "title")
+    private String title;
 
     @Column(name = "price")
     private Long price;
+
+    @ManyToOne
+    @JoinColumn(name = "key_order_type_id", referencedColumnName = "key_order_type_id")
+    private KeyOrderType keyOrderType;
+
+    @OneToOne(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private ProductDetail detail;
 }

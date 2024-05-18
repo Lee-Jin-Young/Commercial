@@ -6,7 +6,7 @@ import lombok.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "order")
+@Table(name = "orders")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -21,12 +21,12 @@ public class Order {
     @Column(name = "order_date", nullable = false)
     LocalDateTime orderDate;
 
+    @Column(name = "quantity", nullable = false)
+    Long quantity;
+
     @JoinColumn(name = "user_id", nullable = false)
     Long userId;
 
     @JoinColumn(name = "product_id", nullable = false)
     Long productId;
-
-    @JoinColumn(name = "order_status_key_id", nullable = false)
-    Long orderStatusKeyId;
 }

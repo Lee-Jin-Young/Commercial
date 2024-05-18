@@ -7,22 +7,14 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/product")
+@RequestMapping("/api/products")
 public class ProductController {
     private final ProductService productService;
 
     @GetMapping("/list")
-    public ResponseEntity<?> productList(@RequestParam int page,
+    public ResponseEntity<?> productList(@RequestParam String type,
+                                         @RequestParam int page,
                                          @RequestParam int size) {
-        return ResponseEntity.ok(productService.getList(page, size));
-    }
-
-    @GetMapping("/{productId}")
-    public ResponseEntity<?> productDetail(@PathVariable Long productId) {
-        try {
-            return ResponseEntity.ok(productService.getDetail(productId));
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+        return ResponseEntity.ok(productService.getList(type, page, size));
     }
 }

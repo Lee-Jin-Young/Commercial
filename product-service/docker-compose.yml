@@ -20,11 +20,21 @@ services:
     volumes:
       - ./data:/var/lib/mysql
 
+  # Redis
+  redis:
+    image: redis:latest
+    # 컨테이너가 의도치 않게 종료 혹은 도커 시작 시 자동시작
+    restart: always
+    ports:
+      # 포트번호 [로컬 포트]:6379
+      - "6380:6379"
+
   spring-boot-app:
     build:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "8002:8002"
+      - "8002:8080"
     depends_on:
       - mysql
+      - redis

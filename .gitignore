@@ -35,4 +35,7 @@ out/
 
 ### VS Code ###
 .vscode/
-/docker-compose.yml
+user-service/data/
+product-service/data/
+order-service/data/
+hs_err_pid19724.log

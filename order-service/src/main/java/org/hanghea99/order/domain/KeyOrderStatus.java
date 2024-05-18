@@ -1,19 +1,21 @@
 package org.hanghea99.order.domain;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Table(name = "key_order_status")
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class KeyOrderStatus {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "key_order_status_id")
-    Long orderStatusKeyId;
+    private Long keyOrderStatusId;
 
-    @Column(name = "order_status", nullable = false)
-    String orderStatus;
+    @Column(name = "key_order_status", nullable = false)
+    private String status;
 }
