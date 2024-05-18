@@ -19,6 +19,9 @@ docker-compose, Dockerfile, script 등의 파일을 tar로 제공 할 예정
 ---
 ## 3. 문제 해결 방법
 
+- redis 적용 이후 테스트데이터 작성 예정
+
+
 docker-compose를 통해 db와 spring boot를 실행 할 수 있도록 하려는 과정에서 ConnectException 발생
 
 #### 첫번째 가정) db가 켜지지 않아서 발생 하는 문제 일 것이다
@@ -50,7 +53,7 @@ mysql> SELECT * FROM information_schema.TABLE_PRIVILEGES;
 -> 서버 ip로 작성 시 / localhost로 작성 시 동일 한 오류 발생
 
 최종 해결 방법 :
-1,3 4번의 이유가 복합적으로 작용하였다.
+1, 3, 4번의 이유가 복합적으로 작용하였다.
 1 -> 처음 docker-compose 실행 시 db를 먼저 실행 후, 올바르게 실행 되었을 때 spring boot를 실행 하도록 함
 ```bash
 #!/bin/bash
@@ -84,10 +87,6 @@ exec $cmd
 ## 6. 사전 요구 사항
 
 ---
-api 명세(postman)
-인프라, 배포 관련 이미지
-ci/cd flow
-
 [Postman](https://documenter.getpostman.com/view/32012062/2sA3JT3yfd)
 
 ![image](https://github.com/Lee-Jin-Young/Commercial/assets/129915982/2f017ded-3fe4-49a3-927b-be8dc588a4e2)
