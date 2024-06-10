@@ -2,7 +2,7 @@ package org.hanghea99.order.service;
 
 import lombok.RequiredArgsConstructor;
 import org.hanghea99.order.client.ProductClient;
-import org.hanghea99.order.domain.Cart;
+import org.hanghea99.order.entity.Cart;
 import org.hanghea99.order.dto.CartDto;
 import org.hanghea99.order.dto.ProductDto;
 import org.hanghea99.order.dto.UpdateCartDto;

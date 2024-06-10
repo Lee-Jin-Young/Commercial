@@ -1,6 +1,6 @@
 package org.hanghea99.order.repository;
 
-import org.hanghea99.order.domain.Cart;
+import org.hanghea99.order.entity.Cart;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

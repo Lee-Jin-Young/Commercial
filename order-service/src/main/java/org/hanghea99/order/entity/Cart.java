@@ -1,4 +1,4 @@
-package org.hanghea99.order.domain;
+package org.hanghea99.order.entity;
 
 import jakarta.persistence.*;
 import lombok.*;

@@ -1,9 +1,9 @@
 package org.hanghea99.order.utilAndSecurity;
 
 import lombok.RequiredArgsConstructor;
-import org.hanghea99.order.domain.KeyOrderStatus;
-import org.hanghea99.order.domain.Order;
-import org.hanghea99.order.domain.OrderStatus;
+import org.hanghea99.order.entity.KeyOrderStatus;
+import org.hanghea99.order.entity.Order;
+import org.hanghea99.order.entity.OrderStatus;
 import org.hanghea99.order.repository.KeyOrderStatusRepository;
 import org.hanghea99.order.repository.OrderRepository;
 import org.hanghea99.order.repository.OrderStatusRepository;
